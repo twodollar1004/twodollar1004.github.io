@@ -68,6 +68,13 @@
     font-family:inherit;font-size:22px;font-weight:800;letter-spacing:-.5px;color:var(--ink);
     padding:13px 0;text-align:right;
   }
+  .inputbox input[type=number]::-webkit-inner-spin-button,
+  .inputbox input[type=number]::-webkit-outer-spin-button,
+  .mini::-webkit-inner-spin-button,
+  .mini::-webkit-outer-spin-button{-webkit-appearance:none;appearance:none;margin:0}
+  .inputbox input[type=number],
+  .mini[type=number]{-moz-appearance:textfield;appearance:textfield}
+  .inputbox input:focus{outline:none}
   .inputbox input::placeholder{color:#b8c6cd;font-weight:600}
   .inputbox .unit{font-size:13px;font-weight:700;color:var(--ink-soft);flex:0 0 auto}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}

@@ -83,6 +83,17 @@
   .cta .txt small{display:block;opacity:.86;font-size:12.5px;margin-top:3px;font-weight:500}
   .cta .arrow{font-size:20px;opacity:.85;flex:0 0 auto}
 
+  /* ---------- 두 번째 CTA (홈페이지·갤러리) ---------- */
+  .cta-home{
+    margin-top:12px;
+    background:linear-gradient(135deg,#fffdfb,#fdf3e9 58%,#f9e7d8);
+    color:#5b463a;
+    border:1px solid rgba(179,116,90,.20);
+    box-shadow:var(--shadow);
+  }
+  .cta-home:hover,.cta-home:focus-visible{box-shadow:0 22px 44px rgba(179,116,90,.22)}
+  .cta-home .txt small{color:#8a7565;opacity:1}
+
   /* ---------- cards ---------- */
   .sec{margin-top:34px}
   .sec-h{display:flex;align-items:baseline;gap:9px;margin:0 0 13px 2px}
@@ -153,6 +164,15 @@
     <span class="txt">
       <b>스윙·익절 계산기 열기</b>
       <small>+5% 절반 익절 · 본전 스탑가 바로 계산</small>
+    </span>
+    <span class="arrow" aria-hidden="true">→</span>
+  </a>
+
+  <a class="cta cta-home" href="home/">
+    <span class="ico">🖼️</span>
+    <span class="txt">
+      <b>나의 홈페이지 · 작품 갤러리</b>
+      <small>수채화 · 보태니컬아트 · 캘리그라피 · 펜드로잉을 테마별로</small>
     </span>
     <span class="arrow" aria-hidden="true">→</span>
   </a>

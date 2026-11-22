@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>oO투딸라Oo | 배우고 만든 것을 모으는 곳</title>
+<meta name="description" content="투딸라의 홈페이지. 수채화·보태니컬아트·캘리그라피·펜드로잉 작품 갤러리와 일상, 돈 공부 노트, 나의 성장 이야기를 모았습니다.">
+<meta name="theme-color" content="#fdf2e7">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='26' fill='%23f3d9c5'/%3E%3Ctext x='50' y='70' font-size='54' text-anchor='middle' font-family='sans-serif'%3E%F0%9F%8E%A8%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* ---------- 기본 ---------- */
+  :root{
+    --cream:#fcfbf8;
+    --paper:#fffdfb;
+    --ink:#3a322b;
+    --ink-soft:#7c7167;
+    --line:rgba(58,50,43,.10);
+    --clay:#b3745a;
+    --clay-deep:#8f5943;
+    --clay-soft:#f7e3d6;
+    --olive:#7b8e6e;
+    --shadow:0 10px 30px rgba(150,116,92,.10);
+    --shadow-lg:0 22px 52px rgba(150,116,92,.16);
+    --radius:26px;
+    --font-body:"Pretendard","Pretendard Variable",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+    --font-title:"Gowun Batang","Nanum Myeongjo",serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:
+      radial-gradient(900px 480px at 8% -6%, #fdeee1 0%, rgba(253,238,225,0) 62%),
+      radial-gradient(760px 420px at 96% 2%, #eef2e6 0%, rgba(238,242,230,0) 58%),
+      var(--cream);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1120px;margin:0 auto;padding:22px 20px 64px}
+
+  /* ---------- 상단 바 ---------- */
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 2px 0}
+  .brand{font-family:var(--font-title);font-size:19px;font-weight:700;letter-spacing:.5px}
+  .brand span{color:var(--clay)}
+  .hub-link{
+    font-size:13px;font-weight:600;color:var(--ink-soft);
+    border:1px solid var(--line);background:rgba(255,255,255,.7);
+    padding:7px 13px;border-radius:999px;transition:color .2s,border-color .2s,background .2s;
+  }
+  .hub-link:hover,.hub-link:focus-visible{color:var(--clay-deep);border-color:rgba(179,116,90,.45);background:#fff}
+
+  /* ---------- 히어로 ---------- */
+  .hero{
+    position:relative;overflow:hidden;isolation:isolate;
+    margin-top:18px;
+    border-radius:34px;
+    padding:58px 26px 46px;
+    text-align:center;
+    background:
+      radial-gradient(120% 130% at 12% 0%, #fdf4ea 0%, rgba(253,244,234,0) 60%),
+      radial-gradient(110% 120% at 88% 4%, #f7e6d6 0%, rgba(247,230,214,0) 62%),
+      linear-gradient(158deg,#fdf2e7 0%,#f9e6d7 46%,#f1eee2 100%);
+    box-shadow:var(--shadow);
+  }
+  /* 부드러운 물감 번짐 */
+  .hero::before,.hero::after{
+    content:"";position:absolute;border-radius:50%;filter:blur(42px);z-index:-1;pointer-events:none;
+  }
+  .hero::before{width:340px;height:340px;left:-90px;bottom:-140px;background:rgba(197,214,190,.55)}
+  .hero::after{width:300px;height:300px;right:-80px;top:-120px;background:rgba(233,196,170,.55)}
+  .hero .ring{
+    position:absolute;z-index:-1;border-radius:50%;border:1px solid rgba(179,116,90,.16);
+    width:520px;height:520px;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;
+  }
+  .hero .kicker{
+    display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.34em;color:var(--clay-deep);
+    background:rgba(255,255,255,.62);border:1px solid rgba(179,116,90,.22);
+    padding:6px 14px;border-radius:999px;margin-bottom:18px;
+  }
+  .hero h1{
+    font-family:var(--font-title);
+    margin:0 0 14px;
+    font-size:clamp(34px,7.6vw,58px);
+    font-weight:700;letter-spacing:.5px;line-height:1.22;
+    color:#4a3b31;
+  }
+  .hero .tagline{
+    margin:0 auto;max-width:30em;
+    font-size:clamp(14px,2.6vw,17px);color:#6d5c4e;font-weight:500;
+  }
+  .quote{
+    margin:26px auto 0;max-width:600px;
+    background:rgba(255,255,255,.74);
+    border:1px solid rgba(255,255,255,.9);
+    border-radius:20px;padding:20px 22px;
+    box-shadow:0 8px 24px rgba(150,116,92,.10);
+    backdrop-filter:blur(6px);
+  }
+  .quote b{display:block;font-size:14px;color:var(--clay-deep);letter-spacing:-.1px;margin-bottom:8px}
+  .quote p{margin:0;font-family:var(--font-title);font-size:clamp(15px,2.8vw,18px);color:#55453a;line-height:1.6}
+  .socials{display:flex;justify-content:center;gap:10px;margin-top:26px;flex-wrap:wrap}
+  .socials a{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13.5px;font-weight:600;color:#5b4a3e;
+    background:#fff;border:1px solid rgba(179,116,90,.18);
+    padding:10px 18px;border-radius:999px;
+    box-shadow:0 6px 16px rgba(150,116,92,.10);
+    transition:transform .18s ease, box-shadow .18s ease, color .18s ease;
+  }
+  .socials a:hover,.socials a:focus-visible{transform:translateY(-2px);box-shadow:0 12px 26px rgba(150,116,92,.18);color:var(--clay-deep)}
+  .socials svg{width:17px;height:17px;flex:0 0 auto}
+
+  /* ---------- 섹션 공통 ---------- */
+  .sec{margin-top:52px}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:0 2px 16px}
+  .sec-head h2{
+    font-family:var(--font-title);
+    margin:0;font-size:clamp(21px,3.4vw,26px);font-weight:700;letter-spacing:-.2px;
+  }
+  .sec-head p{margin:4px 0 0;font-size:13px;color:var(--ink-soft)}
+  .sec-head .more{font-size:12.5px;font-weight:600;color:var(--clay);white-space:nowrap}
+  .sec-head .more:hover{color:var(--clay-deep)}
+
+  .panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .g5{grid-template-columns:repeat(5,minmax(0,1fr))}
+  @media (max-width:900px){.g5{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media (max-width:720px){.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:520px){
+    .g2,.g3,.g5{grid-template-columns:1fr}
+    .wrap{padding:16px 14px 52px}
+    .panel{padding:16px;border-radius:22px}
+    .hero{padding:44px 18px 38px;border-radius:26px}
+  }
+
+  .card{
+    background:linear-gradient(180deg,#fffefc,#fdfaf6);
+    border:1px solid var(--line);border-radius:18px;padding:16px 16px 15px;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .card:hover,.card:focus-within{transform:translateY(-3px);box-shadow:0 14px 30px rgba(150,116,92,.14);border-color:rgba(179,116,90,.25)}
+  .card h3{margin:0 0 5px;font-size:15.5px;font-weight:700;letter-spacing:-.2px}
+  .card p{margin:0;font-size:12.8px;color:var(--ink-soft);line-height:1.62}
+  .card .ico{display:block;font-size:19px;margin-bottom:8px;line-height:1}
+
+  /* ---------- 갤러리 ---------- */
+  .gallery-panel{padding:22px 22px 26px}
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 8px}
+  .chip{
+    appearance:none;font-family:inherit;cursor:pointer;
+    font-size:13px;font-weight:600;color:#6d5c4e;
+    background:#fff;border:1px solid var(--line);
+    padding:8px 15px;border-radius:999px;
+    transition:color .2s, background .2s, border-color .2s, box-shadow .2s, transform .12s;
+  }
+  .chip:hover{border-color:rgba(179,116,90,.4);color:var(--clay-deep)}
+  .chip:active{transform:scale(.97)}
+  .chip[aria-pressed="true"]{
+    background:var(--clay);border-color:var(--clay);color:#fff;
+    box-shadow:0 8px 18px rgba(179,116,90,.28);
+  }
+  .filter-hint{margin:0 0 18px;font-size:12.5px;color:var(--ink-soft);min-height:1.4em}
+
+  .art-grid{display:grid;gap:16px;grid-template-columns:repeat(4,minmax(0,1fr))}
+  @media (max-width:900px){.art-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media (max-width:640px){.art-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
+
+  .art{
+    display:flex;flex-direction:column;
+    border-radius:18px;overflow:hidden;
+    background:#fff;border:1px solid var(--line);
+    box-shadow:0 6px 18px rgba(150,116,92,.08);
+    transition:opacity .26s ease, transform .26s ease, box-shadow .2s ease;
+  }
+  .art:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(150,116,92,.16)}
+  .art[hidden]{display:none}
+  .art.out{opacity:0;transform:scale(.97)}
+
+  .art-media{position:relative;display:block;aspect-ratio:1/1;overflow:hidden;background:#f4efe8}
+  .art-media img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+  .art:hover .art-media img{transform:scale(1.05)}
+  .art-media.empty{
+    display:grid;place-items:center;
+    background:linear-gradient(150deg,#f7f3ec,#efe9e1);
+  }
+  .art-media.empty .ph{display:grid;place-items:center;gap:6px;color:#a2937f;text-align:center;padding:8px}
+  .art-media.empty .ph svg{width:26px;height:26px;opacity:.75}
+  .art-media.empty .ph small{font-size:11px;letter-spacing:.02em}
+
+  .art-meta{padding:12px 13px 14px}
+  .badge{
+    display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.02em;
+    padding:3px 9px;border-radius:999px;margin-bottom:7px;
+    background:#f1ece5;color:#7a6a59;
+  }
+  .art h3{margin:0;font-size:13.8px;font-weight:700;letter-spacing:-.2px;line-height:1.45}
+  .art p{margin:3px 0 0;font-size:11.8px;color:var(--ink-soft);line-height:1.55}
+
+  /* 테마 색 */
+  .art[data-theme="watercolor"] .badge{background:#e8f0f6;color:#4c7391}
+  .art[data-theme="watercolor"] .art-media.empty{background:linear-gradient(150deg,#eef4f9,#dfe9f1)}
+  .art[data-theme="botanical"] .badge{background:#ebf1e5;color:#5f7a53}
+  .art[data-theme="botanical"] .art-media.empty{background:linear-gradient(150deg,#f1f5ea,#e3ebd9)}
+  .art[data-theme="calligraphy"] .badge{background:#efebe5;color:#6f6357}
+  .art[data-theme="calligraphy"] .art-media.empty{background:linear-gradient(150deg,#f5f1ea,#ebe4da)}
+  .art[data-theme="pen"] .badge{background:#f5ece5;color:#8a5c46}
+  .art[data-theme="pen"] .art-media.empty{background:linear-gradient(150deg,#f8f1ea,#efe4da)}
+
+  /* ---------- 푸터 ---------- */
+  .foot{margin-top:46px;text-align:center;color:#9c8f83;font-size:12px;line-height:1.9}
+  .foot .dot{opacity:.45;padding:0 7px}
+  .foot a{color:var(--clay)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 상단 바 -->
+  <div class="topbar">
+    <div class="brand">oO<span>투딸라</span>Oo</div>
+    <a class="hub-link" href="../">링크 허브 →</a>
+  </div>
+
+  <!-- 히어로 -->
+  <header class="hero">
+    <span class="ring" aria-hidden="true"></span>
+    <span class="kicker">TWO DOLLAR</span>
+    <h1>oO투딸라Oo</h1>
+    <p class="tagline">보기 드물고, 창의적이며, 특별한 감성을 가진 나만의 세계</p>
+
+    <div class="quote">
+      <b>✨ 그래서 ‘투딸라’는 어떤 이름이 될 수 있냐면</b>
+      <p>“겉보기엔 단순해도 알고 보면 보물 같은 사람.”</p>
+    </div>
+
+    <div class="socials">
+      <a href="https://blog.naver.com/whois1004" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h11a2 2 0 0 1 2 2v12H6a2 2 0 0 1-2-2V5z"/><path d="M17 8h3v9a2 2 0 0 1-2 2h-1"/><path d="M7 9h6M7 13h4"/></svg>
+        네이버 블로그
+      </a>
+      <a href="https://www.instagram.com/tw0doller" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg>
+        인스타그램
+      </a>
+    </div>
+  </header>
+
+  <!-- 투딸라 일상 · 다또그 하또그 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div>
+        <h2>투딸라 일상 · 다또그 하또그</h2>
+        <p>소소한 하루와 아이들과의 기록</p>
+      </div>
+      <a class="more" href="https://blog.naver.com/whois1004" target="_blank" rel="noopener noreferrer">블로그에서 보기 →</a>
+    </div>
+    <div class="panel">
+      <div class="grid g2">
+        <div class="card">
+          <span class="ico">☕</span>
+          <h3>투딸라 일상</h3>
+          <p>소소한 일상 속 행복과 경험들을 기록한 글입니다.</p>
+        </div>
+        <div class="card">
+          <span class="ico">🐾</span>
+          <h3>다또그 하또그</h3>
+          <p>사랑스러운 아이들, 다또그와 하또그와의 소중한 기록들입니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 돈 공부 노트 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div>
+        <h2>돈 공부 노트</h2>
+        <p>배운 것을 정리하고, 정리한 것을 실천합니다</p>
+      </div>
+      <a class="more" href="https://blog.naver.com/whois1004" target="_blank" rel="noopener noreferrer">블로그에서 보기 →</a>
+    </div>
+    <div class="panel">
+      <div class="grid g5">
+        <div class="card">
+          <span class="ico">🗓️</span>
+          <h3>일일기록</h3>
+          <p>매일 경제 관련 지식을 배우고 정리한 글입니다.</p>
+        </div>
+        <div class="card">
+          <span class="ico">📚</span>
+          <h3>책읽고 정리하고</h3>
+          <p>경제 서적을 읽고 핵심 내용을 요약했습니다.</p>
+        </div>
+        <div class="card">
+          <span class="ico">✅</span>
+          <h3>책보고 실천하고</h3>
+          <p>읽은 내용을 바탕으로 실천한 경험들을 기록했습니다.</p>
+        </div>
+        <div class="card">
+          <span class="ico">🎧</span>
+          <h3>영상보고 요약하고</h3>
+          <p>유튜브나 강의 영상을 보고 중요 내용을 정리했습니다.</p>
+        </div>
+        <div class="card">
+          <span class="ico">🔍</span>
+          <h3>내 주식 탐구</h3>
+          <p>관심 있는 종목을 분석하고 탐구한 기록입니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 나의 성장 이야기 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div>
+        <h2>나의 성장 이야기</h2>
+        <p>새롭게 배우고 손으로 익힌 것들</p>
+      </div>
+      <a class="more" href="https://blog.naver.com/whois1004" target="_blank" rel="noopener noreferrer">블로그에서 보기 →</a>
+    </div>
+    <div class="panel">
+      <div class="grid g3">
+        <div class="card">
+          <span class="ico">🖊️</span>
+          <h3>펜드로잉</h3>
+          <p>새롭게 배우기 시작한 펜드로잉 작품들을 모았습니다.</p>
+        </div>
+        <div class="card">
+          <span class="ico">🤖</span>
+          <h3>AI</h3>
+          <p>AI 관련 지식을 배우고 경험한 기록들입니다.</p>
+        </div>
+        <div class="card">
+          <span class="ico">🍷</span>
+          <h3>와인마스터</h3>
+          <p>와인에 대해 배우고 시음한 기록들입니다.</p>
+        </div>
+        <div class="card">
+          <span class="ico">✍️</span>
+          <h3>블로그챌린지</h3>
+          <p>블로그 챌린지 참여 후기 및 기록입니다.</p>
+        </div>
+        <div class="card">
+          <span class="ico">🎓</span>
+          <h3>인공지능지도사</h3>
+          <p>인공지능지도사 자격증 취득 과정을 기록했습니다.</p>
+        </div>
+        <div class="card">
+          <span class="ico">🌷</span>
+          <h3>행복한 꽃그림</h3>
+          <p>행복한 꽃그림 그리기 활동 기록입니다.</p>
+        </div>
+        <div class="card">
+          <span class="ico">🧶</span>
+          <h3>마크라메 · 라탄공예</h3>
+          <p>마크라메와 라탄공예에 대한 배움 기록입니다.</p>
+        </div>
+        <div class="card">
+          <span class="ico">🎨</span>
+          <h3>일러스트</h3>
+          <p>창작 일러스트와 관련된 기록들입니다.</p>
+        </div>
+        <div class="card">
+          <span class="ico">✏️</span>
+          <h3>소묘</h3>
+          <p>소묘에 대한 배움과 작품 기록입니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 갤러리 -->
+  <section class="sec" id="gallery">
+    <div class="sec-head">
+      <div>
+        <h2>갤러리</h2>
+        <p>테마를 눌러 작품을 골라 보세요</p>
+      </div>
+    </div>
+    <div class="panel gallery-panel">
+
+      <div class="filters" role="group" aria-label="작품 테마 필터">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">전체</button>
+        <button class="chip" type="button" data-filter="watercolor" aria-pressed="false">수채화</button>
+        <button class="chip" type="button" data-filter="botanical" aria-pressed="false">보태니컬아트</button>
+        <button class="chip" type="button" data-filter="calligraphy" aria-pressed="false">캘리그라피</button>
+        <button class="chip" type="button" data-filter="pen" aria-pressed="false">펜드로잉 · 공예</button>
+      </div>
+      <p class="filter-hint" id="filterHint" aria-live="polite"></p>
+
+      <div class="art-grid" id="artGrid">
+
+        <!-- 실제 작품 (블로그 글 연결) -->
+        <article class="art" data-theme="pen">
+          <a class="art-media" href="https://blog.naver.com/whois1004/223943036684" target="_blank" rel="noopener noreferrer">
+            <img src="https://postfiles.pstatic.net/MjAyNTA3MjRfMjEy/MDAxNzUzMzM5ODQ5ODEw.Qshrh__Xz7V74LCcRcmGQC8r56EZ64qW2Qrd2rBkKrUg.D7Ban9WYN19LeCavJt1kkRoOuy2zpQ6HxsKvnNUY89Ag.JPEG/SE-6510c53a-bc74-46b5-bc25-1062bb3cfe31.jpg?type=w773"
+                 alt="진주 조개 펜드로잉" loading="lazy">
+          </a>
+          <div class="art-meta">
+            <span class="badge">펜드로잉</span>
+            <h3>진주 조개</h3>
+            <p>펜 하나로 결을 살린 조개 그림</p>
+          </div>
+        </article>
+
+        <article class="art" data-theme="pen">
+          <a class="art-media" href="https://blog.naver.com/whois1004/223945561560" target="_blank" rel="noopener noreferrer">
+            <img src="https://postfiles.pstatic.net/MjAyNTA3MjRfNjQg/MDAxNzUzMzQxNzEwMTA5.d529nGRGVxXJ7_fwPoRfcN-6LJNql1xu514NOKK8oGog.BTsMWlD5aZYfa-diCGDlni48H65FZ7u-w6DEPsS_PqAg.JPEG/SE-58324999-3076-4e84-acc7-627df1564c0f.jpg?type=w773"
+                 alt="사막 능선 펜드로잉" loading="lazy">
+          </a>
+          <div class="art-meta">
+            <span class="badge">펜드로잉</span>
+            <h3>사막</h3>
+            <p>선의 흐름으로 만든 능선</p>
+          </div>
+        </article>
+
+        <article class="art" data-theme="pen">
+          <a class="art-media" href="https://blog.naver.com/whois1004/223675763791" target="_blank" rel="noopener noreferrer">
+            <img src="https://postfiles.pstatic.net/MjAyNDExMjVfMjA0/MDAxNzMyNTMxMDkwNDQ2.x1YF56sByoK472sQfZDGIy4ei9N_r6h27CKSN91JrmYg.QXzChqdODEyD0_4agPjfryRXGsQnGiUYIUJLPohuG6og.JPEG/900%EF%BC%BF20241125%EF%BC%BF193415.jpg?type=w773"
+                 alt="나무 펜드로잉" loading="lazy">
+          </a>
+          <div class="art-meta">
+            <span class="badge">펜드로잉</span>
+            <h3>우리동네 스케치 · 나무</h3>
+            <p>사상평생학습관 스케치 수업</p>
+          </div>
+        </article>
+
+        <!-- 수채화 자리 -->
+        <article class="art" data-theme="watercolor">
+          <div class="art-media empty" aria-hidden="true">
+            <span class="ph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5c3.6 4.2 5.5 7 5.5 9.4a5.5 5.5 0 1 1-11 0C6.5 10.5 8.4 7.7 12 3.5z"/></svg>
+              <small>작품 자리</small>
+            </span>
+          </div>
+          <div class="art-meta">
+            <span class="badge">수채화</span>
+            <h3>새 작품 자리</h3>
+            <p>완성한 작품이 이 자리에 걸립니다.</p>
+          </div>
+        </article>
+        <article class="art" data-theme="watercolor">
+          <div class="art-media empty" aria-hidden="true">
+            <span class="ph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5c3.6 4.2 5.5 7 5.5 9.4a5.5 5.5 0 1 1-11 0C6.5 10.5 8.4 7.7 12 3.5z"/></svg>
+              <small>작품 자리</small>
+            </span>
+          </div>
+          <div class="art-meta">
+            <span class="badge">수채화</span>
+            <h3>새 작품 자리</h3>
+            <p>완성한 작품이 이 자리에 걸립니다.</p>
+          </div>
+        </article>
+        <article class="art" data-theme="watercolor">
+          <div class="art-media empty" aria-hidden="true">
+            <span class="ph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5c3.6 4.2 5.5 7 5.5 9.4a5.5 5.5 0 1 1-11 0C6.5 10.5 8.4 7.7 12 3.5z"/></svg>
+              <small>작품 자리</small>
+            </span>
+          </div>
+          <div class="art-meta">
+            <span class="badge">수채화</span>
+            <h3>새 작품 자리</h3>
+            <p>완성한 작품이 이 자리에 걸립니다.</p>
+          </div>
+        </article>
+
+        <!-- 보태니컬아트 자리 -->
+        <article class="art" data-theme="botanical">
+          <div class="art-media empty" aria-hidden="true">
+            <span class="ph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4c0 8-4.6 12.5-10 12.5H6.5C6.5 9.6 12 4 20 4z"/><path d="M4 20c0-3.5 2-6.5 5-8"/></svg>
+              <small>작품 자리</small>
+            </span>
+          </div>
+          <div class="art-meta">
+            <span class="badge">보태니컬아트</span>
+            <h3>새 작품 자리</h3>
+            <p>완성한 작품이 이 자리에 걸립니다.</p>
+          </div>
+        </article>
+        <article class="art" data-theme="botanical">
+          <div class="art-media empty" aria-hidden="true">
+            <span class="ph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4c0 8-4.6 12.5-10 12.5H6.5C6.5 9.6 12 4 20 4z"/><path d="M4 20c0-3.5 2-6.5 5-8"/></svg>
+              <small>작품 자리</small>
+            </span>
+          </div>
+          <div class="art-meta">
+            <span class="badge">보태니컬아트</span>
+            <h3>새 작품 자리</h3>
+            <p>완성한 작품이 이 자리에 걸립니다.</p>
+          </div>
+        </article>
+        <article class="art" data-theme="botanical">
+          <div class="art-media empty" aria-hidden="true">
+            <span class="ph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4c0 8-4.6 12.5-10 12.5H6.5C6.5 9.6 12 4 20 4z"/><path d="M4 20c0-3.5 2-6.5 5-8"/></svg>
+              <small>작품 자리</small>
+            </span>
+          </div>
+          <div class="art-meta">
+            <span class="badge">보태니컬아트</span>
+            <h3>새 작품 자리</h3>
+            <p>완성한 작품이 이 자리에 걸립니다.</p>
+          </div>
+        </article>
+
+        <!-- 캘리그라피 자리 -->
+        <article class="art" data-theme="calligraphy">
+          <div class="art-media empty" aria-hidden="true">
+            <span class="ph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 4.5c-1.6-1.6-4 .3-6.4 3.6-2 2.8-3.2 5.6-3.6 7.3 1.7-.4 4.5-1.6 7.3-3.6 3.3-2.4 5.2-4.8 3.6-6.4-.3-.3-.6-.6-.9-.9z"/><path d="M8.2 16.5 4 20.7"/></svg>
+              <small>작품 자리</small>
+            </span>
+          </div>
+          <div class="art-meta">
+            <span class="badge">캘리그라피</span>
+            <h3>새 작품 자리</h3>
+            <p>완성한 작품이 이 자리에 걸립니다.</p>
+          </div>
+        </article>
+        <article class="art" data-theme="calligraphy">
+          <div class="art-media empty" aria-hidden="true">
+            <span class="ph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 4.5c-1.6-1.6-4 .3-6.4 3.6-2 2.8-3.2 5.6-3.6 7.3 1.7-.4 4.5-1.6 7.3-3.6 3.3-2.4 5.2-4.8 3.6-6.4-.3-.3-.6-.6-.9-.9z"/><path d="M8.2 16.5 4 20.7"/></svg>
+              <small>작품 자리</small>
+            </span>
+          </div>
+          <div class="art-meta">
+            <span class="badge">캘리그라피</span>
+            <h3>새 작품 자리</h3>
+            <p>완성한 작품이 이 자리에 걸립니다.</p>
+          </div>
+        </article>
+        <article class="art" data-theme="calligraphy">
+          <div class="art-media empty" aria-hidden="true">
+            <span class="ph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 4.5c-1.6-1.6-4 .3-6.4 3.6-2 2.8-3.2 5.6-3.6 7.3 1.7-.4 4.5-1.6 7.3-3.6 3.3-2.4 5.2-4.8 3.6-6.4-.3-.3-.6-.6-.9-.9z"/><path d="M8.2 16.5 4 20.7"/></svg>
+              <small>작품 자리</small>
+            </span>
+          </div>
+          <div class="art-meta">
+            <span class="badge">캘리그라피</span>
+            <h3>새 작품 자리</h3>
+            <p>완성한 작품이 이 자리에 걸립니다.</p>
+          </div>
+        </article>
+
+        <!-- 펜드로잉 · 공예 자리 -->
+        <article class="art" data-theme="pen">
+          <div class="art-media empty" aria-hidden="true">
+            <span class="ph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4.5L16 4.5l3.5 3.5L8.5 19 4 20z"/><path d="M14.5 6 18 9.5"/></svg>
+              <small>작품 자리</small>
+            </span>
+          </div>
+          <div class="art-meta">
+            <span class="badge">펜드로잉 · 공예</span>
+            <h3>새 작품 자리</h3>
+            <p>완성한 작품이 이 자리에 걸립니다.</p>
+          </div>
+        </article>
+        <article class="art" data-theme="pen">
+          <div class="art-media empty" aria-hidden="true">
+            <span class="ph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4.5L16 4.5l3.5 3.5L8.5 19 4 20z"/><path d="M14.5 6 18 9.5"/></svg>
+              <small>작품 자리</small>
+            </span>
+          </div>
+          <div class="art-meta">
+            <span class="badge">펜드로잉 · 공예</span>
+            <h3>새 작품 자리</h3>
+            <p>완성한 작품이 이 자리에 걸립니다.</p>
+          </div>
+        </article>
+        <article class="art" data-theme="pen">
+          <div class="art-media empty" aria-hidden="true">
+            <span class="ph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4.5L16 4.5l3.5 3.5L8.5 19 4 20z"/><path d="M14.5 6 18 9.5"/></svg>
+              <small>작품 자리</small>
+            </span>
+          </div>
+          <div class="art-meta">
+            <span class="badge">펜드로잉 · 공예</span>
+            <h3>새 작품 자리</h3>
+            <p>완성한 작품이 이 자리에 걸립니다.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    &copy; 2026 oO투딸라Oo<span class="dot">·</span>배우고 만든 것을 모으는 곳<br>
+    작품 사진은 <a href="https://blog.naver.com/whois1004" target="_blank" rel="noopener noreferrer">블로그</a>에 먼저 올리고 이곳에 함께 걸어 둡니다.
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var grid = document.getElementById('artGrid');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var hint = document.getElementById('filterHint');
+  var arts = Array.prototype.slice.call(grid.querySelectorAll('.art'));
+
+  var NAMES = {
+    all: '전체',
+    watercolor: '수채화',
+    botanical: '보태니컬아트',
+    calligraphy: '캘리그라피',
+    pen: '펜드로잉 · 공예'
+  };
+
+  // 칸 수와 실제 작품 수 (빈 자리와 작품을 구분해서 안내)
+  function slots(key) {
+    return key === 'all' ? arts.length : arts.filter(function (a) { return a.dataset.theme === key; }).length;
+  }
+  function works(key) {
+    return arts.filter(function (a) {
+      return (key === 'all' || a.dataset.theme === key) && a.querySelector('.art-media[href]');
+    }).length;
+  }
+  function showCount(key) {
+    var w = works(key);
+    hint.textContent = NAMES[key] + ' · ' + slots(key) + '칸' + (w ? ' 가운데 작품 ' + w + '점' : ' · 아직 빈 자리');
+  }
+
+  var timer = null;
+  function apply(key) {
+    chips.forEach(function (c) {
+      c.setAttribute('aria-pressed', String(c.dataset.filter === key));
+    });
+    showCount(key);
+
+    clearTimeout(timer);
+    arts.forEach(function (a) { a.classList.add('out'); });
+
+    timer = setTimeout(function () {
+      arts.forEach(function (a) {
+        var match = key === 'all' || a.dataset.theme === key;
+        a.hidden = !match;
+        if (match) {
+          // 다음 프레임에 풀어 주어 부드럽게 나타나게 함
+          requestAnimationFrame(function () { a.classList.remove('out'); });
+        } else {
+          a.classList.remove('out');
+        }
+      });
+    }, 170);
+  }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () { apply(chip.dataset.filter); });
+  });
+
+  // 해시로 테마를 바로 열 수 있게 (예: /home/#watercolor)
+  var start = 'all';
+  var h = (location.hash || '').replace('#', '');
+  if (NAMES[h]) start = h;
+  apply(start);
+})();
+</script>
+</body>
+</html>

@@ -4,12 +4,14 @@
 매수가·수량만 넣으면 절반 익절가와 본전 스탑가를 계산해 주는 스윙 계산기입니다.
 
 - 메인: <https://twodollar1004.github.io/> — 링크 모음
+- 홈페이지·작품 갤러리: <https://twodollar1004.github.io/home/> — 테마별(수채화·보태니컬아트·캘리그라피·펜드로잉) 필터 갤러리
 - 계산기: <https://twodollar1004.github.io/swing/> — 스윙·본전현금화 계산기
 
 ## 구성
 
 ```
 index.html          링크 모음 페이지
+home/index.html     홈페이지 · 작품 갤러리 (테마 필터)
 swing/index.html    스윙·본전현금화 계산기 (순수 클라이언트 계산)
 .nojekyll           Jekyll 처리 없이 정적 파일 그대로 배포
 404.html            없는 주소로 들어왔을 때 메인으로 안내

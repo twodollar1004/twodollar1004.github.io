@@ -254,7 +254,7 @@
 
   <!-- 3. 결과 -->
   <div class="sum" aria-live="polite">
-    <div class="k">총 매수금액</div>
+    <div class="k" id="sumLabel">총 매수금액</div>
     <div class="v"><span id="rTotal">—</span><small>원</small></div>
     <div class="foot">
       <span>매수 수수료 <b id="rBuyFee">—</b></span>
@@ -410,6 +410,7 @@
     var totalCost = gross + buyFee;
 
     /* 총 매수금액 */
+    el("sumLabel").textContent = s.feeOn && gross > 0 ? "총 매수금액 (수수료 포함)" : "총 매수금액";
     el("rTotal").textContent = qty > 0 && price > 0 ? won(totalCost) : "—";
     el("rBuyFee").textContent = s.feeOn && gross > 0 ? won(buyFee) + "원" : (s.feeOn ? "—" : "미반영");
 

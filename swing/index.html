@@ -61,7 +61,7 @@
   .field:last-child{margin-bottom:0}
   .field label{display:block;font-size:12.5px;font-weight:700;color:#3f5c66;margin-bottom:6px}
   .field label .hint{font-weight:500;color:#8a9aa5;font-size:11.5px;margin-left:5px}
-  .inputbox{display:flex;align-items:center;gap:10px;background:#f6faf8;border:1.5px solid rgba(127,209,193,.45);border-radius:16px;padding:0 14px;transition:border-color .15s, background .15s}
+  .inputbox{display:flex;align-items:center;gap:10px;min-width:0;background:#f6faf8;border:1.5px solid rgba(127,209,193,.45);border-radius:16px;padding:0 14px;transition:border-color .15s, background .15s}
   .inputbox:focus-within{border-color:var(--mint-deep);background:#fff;box-shadow:0 0 0 4px rgba(127,209,193,.18)}
   .inputbox input{
     flex:1 1 auto;min-width:0;border:0;background:transparent;outline:none;
@@ -77,8 +77,9 @@
   .inputbox input:focus{outline:none}
   .inputbox input::placeholder{color:#b8c6cd;font-weight:600}
   .inputbox .unit{font-size:13px;font-weight:700;color:var(--ink-soft);flex:0 0 auto}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  @media (max-width:360px){.row2{grid-template-columns:1fr}}
+  .row2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+  .field{min-width:0}
+  @media (max-width:430px){.row2{grid-template-columns:minmax(0,1fr)}}
 
   /* chips + slider */
   .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}

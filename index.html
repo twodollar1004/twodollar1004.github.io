@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>투딸라 | 일상·기록·배움 링크 모음</title>
+<meta name="description" content="투딸라의 블로그·유튜브·스윙 계산기를 한곳에서. 캘리그라피, 수채화, AI, 주식 기록.">
+<meta name="theme-color" content="#e8f5f0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%237fd1c1'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%23ffffff' font-family='sans-serif' font-weight='700'%3E%24%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    --mint:#7fd1c1;
+    --mint-soft:#e8f5f0;
+    --mint-deep:#178f7d;
+    --ivory:#fbf9f3;
+    --ink:#22313f;
+    --ink-soft:#5d6f7c;
+    --line:rgba(34,49,63,.08);
+    --shadow:0 10px 30px rgba(23,143,125,.10);
+    --shadow-lg:0 18px 44px rgba(23,143,125,.16);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Pretendard","Pretendard Variable",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1000px 520px at 12% -10%, #d9f2ea 0%, rgba(217,242,234,0) 60%),
+      radial-gradient(760px 420px at 92% 4%, #fdf3dd 0%, rgba(253,243,221,0) 55%),
+      var(--ivory);
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.65;
+  }
+  a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+  .wrap{max-width:720px;margin:0 auto;padding:34px 20px 56px}
+
+  /* ---------- header ---------- */
+  .top{display:flex;align-items:center;gap:12px;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:10px}
+  .logo{
+    width:44px;height:44px;border-radius:14px;flex:0 0 auto;
+    background:linear-gradient(150deg,#9fe0d2,#5cc3b0);
+    box-shadow:0 6px 16px rgba(23,143,125,.28);
+    display:grid;place-items:center;color:#fff;font-weight:800;font-size:17px;letter-spacing:-.5px;
+  }
+  .brand-txt strong{display:block;font-size:17px;letter-spacing:-.2px}
+  .brand-txt span{display:block;font-size:10px;letter-spacing:.32em;color:var(--mint-deep);font-weight:700}
+  .pill{
+    font-size:11.5px;font-weight:700;color:var(--mint-deep);
+    background:rgba(127,209,193,.16);border:1px solid rgba(127,209,193,.4);
+    padding:6px 11px;border-radius:999px;white-space:nowrap;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{margin:34px 0 0}
+  .hero h1{
+    margin:0 0 10px;font-size:clamp(27px,7.4vw,40px);line-height:1.3;letter-spacing:-1px;font-weight:800;
+  }
+  .hero h1 .hl{
+    background:linear-gradient(transparent 62%, rgba(127,209,193,.55) 62%);
+    padding:0 2px;
+  }
+  .hero p{margin:0;color:var(--ink-soft);font-size:15px;max-width:34em}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+  .tag{
+    font-size:12.5px;font-weight:600;color:#3f5c66;background:#fff;
+    border:1px solid var(--line);padding:5px 11px;border-radius:999px;
+  }
+
+  /* ---------- main CTA ---------- */
+  .cta{
+    display:flex;align-items:center;gap:16px;margin-top:26px;
+    background:linear-gradient(135deg,#209e89,#178f7d 55%,#0f7a6b);
+    color:#fff;border-radius:26px;padding:22px 20px;box-shadow:var(--shadow-lg);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .cta:hover,.cta:focus-visible{transform:translateY(-2px);box-shadow:0 24px 52px rgba(15,122,107,.28)}
+  .cta:active{transform:translateY(0)}
+  .cta .ico{font-size:30px;line-height:1;flex:0 0 auto}
+  .cta .txt{flex:1 1 auto;min-width:0}
+  .cta .txt b{display:block;font-size:17.5px;letter-spacing:-.3px}
+  .cta .txt small{display:block;opacity:.86;font-size:12.5px;margin-top:3px;font-weight:500}
+  .cta .arrow{font-size:20px;opacity:.85;flex:0 0 auto}
+
+  /* ---------- cards ---------- */
+  .sec{margin-top:34px}
+  .sec-h{display:flex;align-items:baseline;gap:9px;margin:0 0 13px 2px}
+  .sec-h h2{margin:0;font-size:15.5px;letter-spacing:-.2px}
+  .sec-h span{font-size:12px;color:var(--ink-soft)}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  @media (max-width:430px){.grid{grid-template-columns:1fr}}
+
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px 18px;
+    box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    position:relative;overflow:hidden;
+  }
+  .card::after{
+    content:"";position:absolute;inset:auto -30px -46px auto;width:110px;height:110px;border-radius:50%;
+    background:radial-gradient(circle,rgba(127,209,193,.20),rgba(127,209,193,0) 70%);
+  }
+  .card:hover,.card:focus-visible{transform:translateY(-3px);box-shadow:0 20px 40px rgba(23,143,125,.16);border-color:rgba(127,209,193,.7)}
+  .card .emoji{font-size:24px;line-height:1}
+  .card b{font-size:16px;letter-spacing:-.3px}
+  .card p{margin:0;font-size:13px;color:var(--ink-soft);line-height:1.55}
+  .card .go{
+    margin-top:auto;font-size:12.5px;font-weight:700;color:var(--mint-deep);
+    display:inline-flex;align-items:center;gap:5px;padding-top:4px;
+  }
+  .card .go i{font-style:normal;transition:transform .18s ease}
+  .card:hover .go i{transform:translateX(3px)}
+
+  /* ---------- note ---------- */
+  .note{
+    margin-top:30px;background:rgba(255,255,255,.7);border:1px dashed rgba(127,209,193,.75);
+    border-radius:18px;padding:15px 17px;font-size:12.5px;color:var(--ink-soft);line-height:1.7;
+  }
+  .note b{color:#3f5c66}
+  footer{margin-top:34px;text-align:center;color:#8a9aa5;font-size:11.5px;line-height:1.9}
+  footer .dot{opacity:.4;padding:0 6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="brand">
+      <div class="logo">II$</div>
+      <div class="brand-txt">
+        <strong>투딸라</strong>
+        <span>TWO DOLLAR</span>
+      </div>
+    </div>
+    <div class="pill">기록하는 하루</div>
+  </div>
+
+  <header class="hero">
+    <h1>배우고, 만들고,<br><span class="hl">기록으로 남기는</span> 곳</h1>
+    <p>캘리그라피와 수채화, AI와 주식 공부까지. 오늘 배운 것을 내일 쓸 수 있게 정리합니다.</p>
+    <div class="tags">
+      <span class="tag">🖌 캘리그라피</span>
+      <span class="tag">🎨 수채화</span>
+      <span class="tag">🤖 AI 기록</span>
+      <span class="tag">📈 주식·스윙</span>
+    </div>
+  </header>
+
+  <a class="cta" href="swing/">
+    <span class="ico">📈</span>
+    <span class="txt">
+      <b>스윙·익절 계산기 열기</b>
+      <small>+5% 절반 익절 · 본전 스탑가 바로 계산</small>
+    </span>
+    <span class="arrow" aria-hidden="true">→</span>
+  </a>
+
+  <section class="sec">
+    <div class="sec-h"><h2>채널 바로가기</h2><span>새 창에서 열립니다</span></div>
+    <div class="grid">
+
+      <a class="card" href="https://blog.naver.com/whois1004" target="_blank" rel="noopener noreferrer">
+        <span class="emoji">📝</span>
+        <b>네이버 블로그</b>
+        <p>수업 기록, 그림 작업, 일상과 살림 이야기를 사진과 함께 남깁니다.</p>
+        <span class="go">블로그 열기 <i>→</i></span>
+      </a>
+
+      <a class="card" href="https://www.youtube.com/@%ED%88%AC%EB%94%B8%EB%9D%BC" target="_blank" rel="noopener noreferrer">
+        <span class="emoji">🎬</span>
+        <b>유튜브 · 투딸라</b>
+        <p>AI로 만든 짧은 영상과 작업 과정을 영상으로 담았습니다.</p>
+        <span class="go">채널 열기 <i>→</i></span>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-h"><h2>도구</h2><span>설치 없이 브라우저에서</span></div>
+    <div class="grid">
+
+      <a class="card" href="swing/">
+        <span class="emoji">📈</span>
+        <b>스윙·본전현금화 계산기</b>
+        <p>매수가와 수량만 넣으면 절반 익절가·본전 스탑가·예상 손익을 한 번에.</p>
+        <span class="go">계산기 열기 <i>→</i></span>
+      </a>
+
+      <div class="card" style="cursor:default">
+        <span class="emoji">🧮</span>
+        <b>만들어 가는 중</b>
+        <p>그림·수업 기록에 쓰는 작은 도구들을 하나씩 이 자리에 더할 예정입니다.</p>
+        <span class="go" style="color:#8a9aa5">준비 중</span>
+      </div>
+
+    </div>
+  </section>
+
+  <p class="note">
+    <b>안내</b> — 이 페이지는 개인 기록용 링크 모음입니다. 계산기는 입력한 숫자를 브라우저 안에서만 계산하고
+    서버로 보내지 않습니다. 투자 판단과 결과의 책임은 이용자 본인에게 있습니다.
+  </p>
+
+  <footer>
+    © 2026 투딸라<span class="dot">·</span>매일 조금씩 배우고 기록합니다
+  </footer>
+
+</div>
+</body>
+</html>

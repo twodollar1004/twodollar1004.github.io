@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>스윙·본전현금화 계산기 | 투딸라</title>
+<meta name="description" content="매수가와 수량만 입력하면 +5% 절반 익절가와 본전 스탑가, 예상 손익을 바로 계산합니다. KRX 호가단위·수수료·세금 반영.">
+<meta name="theme-color" content="#e8f5f0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%237fd1c1'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%23ffffff' font-family='sans-serif' font-weight='700'%3E%24%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    --mint:#7fd1c1;
+    --mint-deep:#178f7d;
+    --mint-dark:#0f7a6b;
+    --ivory:#fbf9f3;
+    --ink:#22313f;
+    --ink-soft:#5d6f7c;
+    --line:rgba(34,49,63,.09);
+    --up:#d94a4a;
+    --down:#2e6fd6;
+    --shadow:0 8px 24px rgba(23,143,125,.09);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:"Pretendard","Pretendard Variable",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+    color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;
+    background:
+      radial-gradient(900px 420px at 8% -8%, #d9f2ea 0%, rgba(217,242,234,0) 58%),
+      radial-gradient(700px 360px at 96% 0%, #fdf3dd 0%, rgba(253,243,221,0) 55%),
+      var(--ivory);
+    min-height:100vh;
+  }
+  a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+  .wrap{max-width:680px;margin:0 auto;padding:20px 16px 60px}
+
+  /* header */
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:20px}
+  .back{
+    display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--mint-deep);
+    background:#fff;border:1px solid var(--line);padding:8px 13px;border-radius:999px;box-shadow:var(--shadow);
+  }
+  .back:active{transform:scale(.97)}
+  .title{text-align:right}
+  .title b{display:block;font-size:14px;letter-spacing:-.2px}
+  .title span{font-size:11px;color:var(--ink-soft)}
+
+  h1{margin:0 0 6px;font-size:clamp(22px,6vw,29px);letter-spacing:-.8px;line-height:1.32}
+  .lead{margin:0 0 20px;font-size:13.5px;color:var(--ink-soft)}
+  .lead b{color:var(--mint-deep)}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:18px;margin-bottom:14px}
+  .card h2{margin:0 0 14px;font-size:14px;letter-spacing:-.2px;display:flex;align-items:center;gap:7px}
+  .card h2 .n{
+    width:20px;height:20px;border-radius:7px;background:rgba(127,209,193,.22);color:var(--mint-dark);
+    font-size:11px;display:grid;place-items:center;font-weight:800;flex:0 0 auto;
+  }
+
+  /* inputs */
+  .field{margin-bottom:14px}
+  .field:last-child{margin-bottom:0}
+  .field label{display:block;font-size:12.5px;font-weight:700;color:#3f5c66;margin-bottom:6px}
+  .field label .hint{font-weight:500;color:#8a9aa5;font-size:11.5px;margin-left:5px}
+  .inputbox{display:flex;align-items:center;gap:10px;background:#f6faf8;border:1.5px solid rgba(127,209,193,.45);border-radius:16px;padding:0 14px;transition:border-color .15s, background .15s}
+  .inputbox:focus-within{border-color:var(--mint-deep);background:#fff;box-shadow:0 0 0 4px rgba(127,209,193,.18)}
+  .inputbox input{
+    flex:1 1 auto;min-width:0;border:0;background:transparent;outline:none;
+    font-family:inherit;font-size:22px;font-weight:800;letter-spacing:-.5px;color:var(--ink);
+    padding:13px 0;text-align:right;
+  }
+  .inputbox input::placeholder{color:#b8c6cd;font-weight:600}
+  .inputbox .unit{font-size:13px;font-weight:700;color:var(--ink-soft);flex:0 0 auto}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media (max-width:360px){.row2{grid-template-columns:1fr}}
+
+  /* chips + slider */
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+  .chip{
+    border:1px solid rgba(127,209,193,.5);background:#fff;color:#2f5d59;font-family:inherit;
+    font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:999px;cursor:pointer;
+    transition:all .15s;
+  }
+  .chip:hover{background:rgba(127,209,193,.14)}
+  .chip[aria-pressed="true"]{background:var(--mint-deep);border-color:var(--mint-deep);color:#fff;box-shadow:0 4px 12px rgba(23,143,125,.28)}
+  input[type=range]{
+    -webkit-appearance:none;appearance:none;width:100%;height:26px;background:transparent;margin:4px 0 0;cursor:pointer;
+  }
+  input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:999px;background:linear-gradient(90deg,var(--mint) 0%,var(--mint) var(--p,50%),#e4eeeb var(--p,50%),#e4eeeb 100%)}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid var(--mint-deep);margin-top:-8px;box-shadow:0 3px 8px rgba(23,143,125,.3)}
+  input[type=range]::-moz-range-track{height:6px;border-radius:999px;background:#e4eeeb}
+  input[type=range]::-moz-range-progress{height:6px;border-radius:999px;background:var(--mint)}
+  input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--mint-deep)}
+
+  /* switch */
+  .switch-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0}
+  .switch-row .lbl{font-size:13px;font-weight:700;color:#3f5c66}
+  .switch-row .sub{display:block;font-size:11.5px;color:#8a9aa5;font-weight:500;margin-top:2px}
+  .switch{position:relative;flex:0 0 auto;width:50px;height:29px}
+  .switch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+  .switch .track{position:absolute;inset:0;border-radius:999px;background:#dce6e3;transition:background .18s}
+  .switch .track::after{content:"";position:absolute;top:3px;left:3px;width:23px;height:23px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.16);transition:transform .18s}
+  .switch input:checked + .track{background:var(--mint-deep)}
+  .switch input:checked + .track::after{transform:translateX(21px)}
+  .switch input:focus-visible + .track{box-shadow:0 0 0 4px rgba(127,209,193,.35)}
+
+  details.adv{margin-top:12px;border-top:1px dashed var(--line);padding-top:12px}
+  details.adv summary{font-size:12px;font-weight:700;color:var(--mint-deep);cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px}
+  details.adv summary::-webkit-details-marker{display:none}
+  details.adv summary::before{content:"⚙";font-size:12px}
+  details.adv[open] summary{margin-bottom:10px}
+
+  /* results */
+  .sum{background:linear-gradient(135deg,#1ea28d,#178f7d 60%,#0f7a6b);color:#fff;border-radius:22px;padding:20px 18px;box-shadow:0 16px 34px rgba(15,122,107,.24);margin-bottom:14px}
+  .sum .k{font-size:12px;opacity:.85;font-weight:600}
+  .sum .v{font-size:clamp(26px,7.5vw,34px);font-weight:800;letter-spacing:-1px;line-height:1.2;margin-top:2px}
+  .sum .v small{font-size:15px;font-weight:700;margin-left:3px;opacity:.9}
+  .sum .foot{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:12px;opacity:.92;border-top:1px solid rgba(255,255,255,.22);padding-top:11px}
+  .sum .foot span b{font-weight:800}
+
+  .legs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+  @media (max-width:430px){.legs{grid-template-columns:1fr}}
+  .leg{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .leg::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--mint)}
+  .leg.sell::before{background:#e8a13a}
+  .leg .top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+  .leg .name{font-size:12.5px;font-weight:800;color:#3f5c66}
+  .leg .badge{font-size:10.5px;font-weight:800;color:#8a6321;background:rgba(232,161,58,.16);padding:3px 8px;border-radius:999px;white-space:nowrap}
+  .leg .price{font-size:clamp(21px,6vw,26px);font-weight:800;letter-spacing:-.8px;line-height:1.2}
+  .leg .price small{font-size:13px;font-weight:700;color:var(--ink-soft);margin-left:2px}
+  .leg .meta{font-size:11.5px;color:var(--ink-soft);margin-top:4px}
+  .leg .profit{margin-top:10px;font-size:12.5px;font-weight:700;display:flex;justify-content:space-between;gap:8px;border-top:1px dashed var(--line);padding-top:9px}
+  .up{color:var(--up)} .down{color:var(--down)} .flat{color:var(--ink-soft)}
+
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{padding:9px 6px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{font-size:11.5px;color:#8a9aa5;font-weight:700;border-bottom:1.5px solid rgba(127,209,193,.5)}
+  th:first-child,td:first-child{text-align:left}
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr.custom td{background:rgba(127,209,193,.08);font-weight:700}
+  .tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .mini{width:74px;border:1px solid rgba(127,209,193,.5);border-radius:10px;padding:6px 8px;font-family:inherit;font-size:12.5px;font-weight:700;text-align:right;outline:none;background:#fff;color:var(--ink)}
+  .mini:focus{border-color:var(--mint-deep);box-shadow:0 0 0 3px rgba(127,209,193,.18)}
+
+  .tips{font-size:12px;color:var(--ink-soft);line-height:1.8}
+  .tips b{color:#3f5c66}
+  .tips ul{margin:8px 0 0;padding-left:17px}
+  .tips li{margin-bottom:4px}
+  .tick-table{font-size:11.5px}
+  .tick-table td,.tick-table th{padding:6px 4px}
+  footer{margin-top:26px;text-align:center;font-size:11px;color:#8a9aa5;line-height:1.9}
+  .empty{color:#b8c6cd}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="bar">
+    <a class="back" href="../">← 링크 모음</a>
+    <div class="title"><b>스윙 · 본전현금화 계산기</b><span>투딸라 스윙 시스템</span></div>
+  </div>
+
+  <h1>절반은 익절, 남은 절반은<br>본전에서 지킨다</h1>
+  <p class="lead">매수가와 수량만 넣으면 <b>1차 익절가</b>와 <b>본전 스탑가</b>, 세금·수수료를 뺀 실제 손익까지 바로 나옵니다.</p>
+  <noscript>
+    <div class="card" style="border-color:#e8c07a;background:#fff8ea">
+      <b>자바스크립트가 꺼져 있습니다.</b> 계산을 하려면 브라우저 설정에서 이 사이트의 자바스크립트를 허용해 주세요.
+    </div>
+  </noscript>
+
+  <!-- 1. 입력 -->
+  <section class="card">
+    <h2><span class="n">1</span>매수 정보</h2>
+
+    <div class="row2">
+      <div class="field">
+        <label for="price">매수가 <span class="hint">1주 평균단가</span></label>
+        <div class="inputbox">
+          <input id="price" type="number" inputmode="numeric" min="0" step="1" placeholder="0" autocomplete="off" aria-label="매수가">
+          <span class="unit">원</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="qty">수량</label>
+        <div class="inputbox">
+          <input id="qty" type="number" inputmode="numeric" min="0" step="1" placeholder="0" autocomplete="off" aria-label="매수 수량">
+          <span class="unit">주</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="tp">1차 목표 수익률 <span class="hint">절반 익절</span></label>
+      <div class="inputbox">
+        <input id="tp" type="number" inputmode="decimal" min="0" max="50" step="0.1" value="5" autocomplete="off" aria-label="1차 목표 수익률">
+        <span class="unit">%</span>
+      </div>
+      <input id="tprange" type="range" min="1" max="20" step="0.5" value="5" aria-label="목표 수익률 슬라이더">
+      <div class="chips" id="tpchips">
+        <button class="chip" type="button" data-tp="3">+3%</button>
+        <button class="chip" type="button" data-tp="5" aria-pressed="true">+5%</button>
+        <button class="chip" type="button" data-tp="7">+7%</button>
+        <button class="chip" type="button" data-tp="10">+10%</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="be">본전 스탑 기준 <span class="hint">남은 절반</span></label>
+      <div class="inputbox">
+        <input id="be" type="number" inputmode="decimal" min="0" max="20" step="0.1" value="0.5" autocomplete="off" aria-label="본전 스탑 기준 수익률">
+        <span class="unit">%</span>
+      </div>
+      <div class="chips" id="bechips">
+        <button class="chip" type="button" data-be="0" >0%</button>
+        <button class="chip" type="button" data-be="0.5" aria-pressed="true">+0.5%</button>
+        <button class="chip" type="button" data-be="1">+1%</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 비용 -->
+  <section class="card">
+    <h2><span class="n">2</span>수수료 · 세금</h2>
+    <div class="switch-row">
+      <div>
+        <label class="lbl" for="feeon">수수료·세금 반영</label>
+        <span class="sub">끄면 단순 가격 차이만 계산합니다</span>
+      </div>
+      <label class="switch">
+        <input id="feeon" type="checkbox" checked aria-label="수수료와 세금 반영">
+        <span class="track"></span>
+      </label>
+    </div>
+
+    <details class="adv" id="advbox">
+      <summary>요율 직접 조정 (기본값 그대로 써도 됩니다)</summary>
+      <div class="row2">
+        <div class="field">
+          <label for="feerate">매매 수수료율 <span class="hint">한쪽당</span></label>
+          <div class="inputbox">
+            <input id="feerate" type="number" inputmode="decimal" min="0" max="1" step="0.001" value="0.015" aria-label="매매 수수료율">
+            <span class="unit">%</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="taxrate">증권거래세 <span class="hint">매도시</span></label>
+          <div class="inputbox">
+            <input id="taxrate" type="number" inputmode="decimal" min="0" max="1" step="0.001" value="0.2" aria-label="증권거래세율">
+            <span class="unit">%</span>
+          </div>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 3. 결과 -->
+  <div class="sum" aria-live="polite">
+    <div class="k">총 매수금액</div>
+    <div class="v"><span id="rTotal">—</span><small>원</small></div>
+    <div class="foot">
+      <span>매수 수수료 <b id="rBuyFee">—</b></span>
+      <span>손익분기 매도가 <b id="rBreakeven">—</b></span>
+    </div>
+  </div>
+
+  <div class="legs">
+    <div class="leg">
+      <div class="top">
+        <span class="name">1차 익절</span>
+        <span class="badge" id="badgeTp">절반 · +5%</span>
+      </div>
+      <div class="price"><span id="rTpPrice">—</span><small>원</small></div>
+      <div class="meta"><span id="rTpQty">—</span> · 매도 <span id="rTpAmount">—</span>원</div>
+      <div class="profit"><span>예상 수익</span><span id="rTpProfit" class="flat">—</span></div>
+    </div>
+
+    <div class="leg sell">
+      <div class="top">
+        <span class="name">본전 스탑</span>
+        <span class="badge" id="badgeBe">잔여 · +0.5%</span>
+      </div>
+      <div class="price"><span id="rBePrice">—</span><small>원</small></div>
+      <div class="meta"><span id="rBeQty">—</span> · 매도 <span id="rBeAmount">—</span>원</div>
+      <div class="profit"><span>확보 수익</span><span id="rBeProfit" class="flat">—</span></div>
+    </div>
+  </div>
+
+  <section class="card">
+    <h2><span class="n">3</span>두 번 모두 체결되면</h2>
+    <div class="row2" style="gap:14px">
+      <div>
+        <div style="font-size:11.5px;color:#8a9aa5;font-weight:700">합계 순수익</div>
+        <div style="font-size:23px;font-weight:800;letter-spacing:-.6px" id="rSumProfit">—</div>
+      </div>
+      <div>
+        <div style="font-size:11.5px;color:#8a9aa5;font-weight:700">매수금액 대비</div>
+        <div style="font-size:23px;font-weight:800;letter-spacing:-.6px" id="rSumRate">—</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 시나리오 -->
+  <section class="card">
+    <h2><span class="n">4</span>수익률별 예상 손익 <span style="font-weight:500;font-size:11.5px;color:#8a9aa5">전량 매도 기준</span></h2>
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th>수익률</th><th>매도가</th><th>예상 손익</th><th>수익률</th></tr>
+        </thead>
+        <tbody id="scenario">
+          <tr><td>-5%</td><td id="sc5p">—</td><td id="sc5n" class="flat">—</td><td id="sc5r" class="flat">—</td></tr>
+          <tr><td>-3%</td><td id="sc3p">—</td><td id="sc3n" class="flat">—</td><td id="sc3r" class="flat">—</td></tr>
+          <tr><td>+3%</td><td id="scp3p">—</td><td id="scp3n" class="flat">—</td><td id="scp3r" class="flat">—</td></tr>
+          <tr><td>+5%</td><td id="scp5p">—</td><td id="scp5n" class="flat">—</td><td id="scp5r" class="flat">—</td></tr>
+          <tr><td>+10%</td><td id="scp10p">—</td><td id="scp10n" class="flat">—</td><td id="scp10r" class="flat">—</td></tr>
+          <tr class="custom">
+            <td><input class="mini" id="customPct" type="number" inputmode="decimal" step="0.5" value="7" aria-label="직접 입력 수익률">%</td>
+            <td id="scXp">—</td><td id="scXn" class="flat">—</td><td id="scXr" class="flat">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin:12px 0 0;font-size:11.5px;color:#8a9aa5">마지막 줄은 직접 수익률을 넣어 볼 수 있습니다.</p>
+  </section>
+
+  <!-- 5. 안내 -->
+  <section class="card">
+    <h2><span class="n">5</span>계산 기준</h2>
+    <div class="tips">
+      <ul>
+        <li><b>호가단위</b>는 KRX 2023 개편 기준으로 익절가는 반올림, 본전 스탑가는 올림해 표시합니다.</li>
+        <li><b>증권거래세</b> 기본 0.20%(코스피·코스닥, 2026년 기준), <b>수수료</b>는 온라인 평균 0.015%를 씁니다. 증권사·이벤트에 따라 다르니 요율에서 조정하세요.</li>
+        <li><b>실제 정산과 차이</b>가 날 수 있습니다. 우대수수료, 제세금 반영 시점, 소수점·단주 처리, 장중 체결가에 따라 금액이 달라집니다. 주문 전 증권사 화면의 예상 정산금을 함께 확인하세요.</li>
+        <li>수량이 <b>홀수</b>이면 절반은 내림하고 남은 수량을 본전 스탑 쪽에 둡니다. 1주만 보유하면 절반 분할이 되지 않아 익절 수량이 1주로 표시됩니다.</li>
+        <li>이 화면의 숫자는 <b>브라우저 안에서만</b> 계산됩니다. 서버로 보내지 않습니다.</li>
+      </ul>
+      <div style="margin-top:14px">
+        <b>호가단위 표</b>
+        <table class="tick-table">
+          <thead><tr><th>가격</th><th>호가</th></tr></thead>
+          <tbody>
+            <tr><td>2,000원 미만</td><td>1원</td></tr>
+            <tr><td>2,000 ~ 5,000원</td><td>5원</td></tr>
+            <tr><td>5,000 ~ 20,000원</td><td>10원</td></tr>
+            <tr><td>20,000 ~ 50,000원</td><td>50원</td></tr>
+            <tr><td>50,000 ~ 200,000원</td><td>100원</td></tr>
+            <tr><td>200,000 ~ 500,000원</td><td>500원</td></tr>
+            <tr><td>500,000원 이상</td><td>1,000원</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    투딸라 스윙 시스템 · +5% 절반 익절 → 본전(+0.5%) 스탑<br>
+    계산 결과는 참고용이며 투자 판단의 책임은 본인에게 있습니다.
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var KEY = "tutala-swing-v1";
+
+  var el = function (id) { return document.getElementById(id); };
+  var priceEl = el("price"), qtyEl = el("qty"), tpEl = el("tp"), tpRange = el("tprange"),
+      beEl = el("be"), feeOnEl = el("feeon"), feeRateEl = el("feerate"), taxRateEl = el("taxrate");
+
+  function num(v) { var n = parseFloat(String(v).replace(/,/g, "")); return isFinite(n) ? n : 0; }
+  function won(n) {
+    if (!isFinite(n)) return "—";
+    var r = Math.round(n);
+    var sign = r < 0 ? "-" : "";
+    return sign + Math.abs(r).toLocaleString("ko-KR");
+  }
+  function pct(n) {
+    if (!isFinite(n)) return "—";
+    var s = n > 0 ? "+" : "";
+    return s + n.toFixed(2) + "%";
+  }
+  /* KRX 호가단위 (2023 개편) */
+  function tickSize(p) {
+    if (p < 2000) return 1;
+    if (p < 5000) return 5;
+    if (p < 20000) return 10;
+    if (p < 50000) return 50;
+    if (p < 200000) return 100;
+    if (p < 500000) return 500;
+    return 1000;
+  }
+  function roundTick(p) { if (!(p > 0)) return 0; var t = tickSize(p); return Math.round(p / t) * t; }
+  function ceilTick(p) { if (!(p > 0)) return 0; var t = tickSize(p); return Math.ceil(p / t) * t; }
+
+  function state() {
+    var price = Math.max(0, Math.round(num(priceEl.value)));
+    var qty = Math.max(0, Math.floor(num(qtyEl.value)));
+    var tp = num(tpEl.value);
+    var be = num(beEl.value);
+    var feeOn = feeOnEl.checked;
+    var feeRate = feeOn ? Math.max(0, num(feeRateEl.value)) / 100 : 0;
+    var taxRate = feeOn ? Math.max(0, num(taxRateEl.value)) / 100 : 0;
+    return { price: price, qty: qty, tp: tp, be: be, feeOn: feeOn, feeRate: feeRate, taxRate: taxRate };
+  }
+
+  function render() {
+    var s = state();
+    var price = s.price, qty = s.qty;
+    var gross = price * qty;
+    var buyFee = gross * s.feeRate;
+    var totalCost = gross + buyFee;
+
+    /* 총 매수금액 */
+    el("rTotal").textContent = qty > 0 && price > 0 ? won(totalCost) : "—";
+    el("rBuyFee").textContent = s.feeOn && gross > 0 ? won(buyFee) + "원" : (s.feeOn ? "—" : "미반영");
+
+    /* 손익분기 매도가 */
+    var bePricePoint = 0;
+    if (qty > 0 && price > 0) {
+      var denom = qty * (1 - s.feeRate - s.taxRate);
+      bePricePoint = denom > 0 ? totalCost / denom : price;
+      el("rBreakeven").textContent = won(roundTick(bePricePoint)) + "원";
+    } else {
+      el("rBreakeven").textContent = "—";
+    }
+
+    /* 수량 분할 */
+    var halfQty = 0, restQty = 0;
+    if (qty >= 2) { halfQty = Math.floor(qty / 2); restQty = qty - halfQty; }
+    else if (qty === 1) { halfQty = 1; restQty = 0; }
+
+    var tpPrice = price > 0 ? roundTick(price * (1 + s.tp / 100)) : 0;
+    var bePrice = price > 0 ? ceilTick(price * (1 + s.be / 100)) : 0;
+
+    el("badgeTp").textContent = "절반 · " + pct(s.tp);
+    el("badgeBe").textContent = "잔여 · " + pct(s.be);
+
+    function leg(px, q) {
+      var amount = px * q;
+      var cost = px > 0 ? (px * q) : 0;
+      var buyPart = price * q * (1 + s.feeRate);
+      var net = amount - amount * (s.feeRate + s.taxRate) - buyPart;
+      var grossDiff = (px - price) * q;
+      return { amount: amount, net: s.feeOn ? net : grossDiff, buyPart: buyPart, gross: grossDiff };
+    }
+
+    var l1 = leg(tpPrice, halfQty);
+    var l2 = leg(bePrice, restQty);
+
+    el("rTpPrice").textContent = price > 0 && qty > 0 ? won(tpPrice) : "—";
+    el("rBePrice").textContent = price > 0 && qty > 0 ? won(bePrice) : "—";
+    el("rTpQty").textContent = qty > 0 ? halfQty + "주 매도" : "—";
+    el("rBeQty").textContent = qty > 0 ? restQty + "주 매도" : "—";
+    el("rTpAmount").textContent = qty > 0 ? won(l1.amount) : "—";
+    el("rBeAmount").textContent = qty > 0 ? won(l2.amount) : "—";
+
+    function paint(node, value, suffix) {
+      node.textContent = (isFinite(value) ? (value > 0 ? "+" : "") + won(value) + suffix : "—");
+      node.className = value > 0 ? "up" : (value < 0 ? "down" : "flat");
+    }
+    if (qty > 0 && price > 0) {
+      paint(el("rTpProfit"), l1.net, "원");
+      paint(el("rBeProfit"), l2.net, "원");
+      var sum = l1.net + l2.net;
+      paint(el("rSumProfit"), sum, "원");
+      var rate = totalCost > 0 ? (sum / totalCost) * 100 : 0;
+      el("rSumRate").textContent = pct(rate);
+      el("rSumRate").className = rate > 0 ? "up" : (rate < 0 ? "down" : "flat");
+    } else {
+      el("rTpProfit").textContent = "—"; el("rTpProfit").className = "flat";
+      el("rBeProfit").textContent = "—"; el("rBeProfit").className = "flat";
+      el("rSumProfit").textContent = "—"; el("rSumProfit").className = "";
+      el("rSumRate").textContent = "—"; el("rSumRate").className = "";
+    }
+
+    /* 시나리오 */
+    [
+      { p: -5, ip: "sc5p", in_: "sc5n", ir: "sc5r" },
+      { p: -3, ip: "sc3p", in_: "sc3n", ir: "sc3r" },
+      { p: 3, ip: "scp3p", in_: "scp3n", ir: "scp3r" },
+      { p: 5, ip: "scp5p", in_: "scp5n", ir: "scp5r" },
+      { p: 10, ip: "scp10p", in_: "scp10n", ir: "scp10r" }
+    ].forEach(function (row) {
+      var sp = price > 0 ? roundTick(price * (1 + row.p / 100)) : 0;
+      var pc = price > 0 && qty > 0;
+      var proceeds = sp * qty;
+      var net = proceeds - proceeds * (s.feeRate + s.taxRate) - totalCost;
+      var roi = totalCost > 0 ? (net / totalCost) * 100 : 0;
+      var cls = net > 0 ? "up" : (net < 0 ? "down" : "flat");
+      el(row.ip).textContent = pc ? won(sp) : "—";
+      el(row.in_).textContent = pc ? (net > 0 ? "+" : "") + won(net) : "—";
+      el(row.ir).textContent = pc ? pct(roi) : "—";
+      el(row.in_).className = pc ? cls : "flat";
+      el(row.ir).className = pc ? cls : "flat";
+    });
+
+    var cp = num(el("customPct").value);
+    var csp = price > 0 ? roundTick(price * (1 + cp / 100)) : 0;
+    var cpc = price > 0 && qty > 0;
+    var cproceeds = csp * qty;
+    var cnet = cproceeds - cproceeds * (s.feeRate + s.taxRate) - totalCost;
+    var croi = totalCost > 0 ? (cnet / totalCost) * 100 : 0;
+    var ccls = cnet > 0 ? "up" : (cnet < 0 ? "down" : "flat");
+    el("scXp").textContent = cpc ? won(csp) : "—";
+    el("scXn").textContent = cpc ? (cnet > 0 ? "+" : "") + won(cnet) : "—";
+    el("scXr").textContent = cpc ? pct(croi) : "—";
+    el("scXn").className = cpc ? ccls : "flat";
+    el("scXr").className = cpc ? ccls : "flat";
+
+    save(s);
+  }
+
+  function save(s) {
+    try {
+      localStorage.setItem(KEY, JSON.stringify({
+        price: priceEl.value, qty: qtyEl.value, tp: tpEl.value, be: beEl.value,
+        feeOn: s.feeOn, feeRate: feeRateEl.value, taxRate: taxRateEl.value
+      }));
+    } catch (e) { /* 저장 실패는 무시 */ }
+  }
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) return;
+      var d = JSON.parse(raw);
+      if (d.price != null) priceEl.value = d.price;
+      if (d.qty != null) qtyEl.value = d.qty;
+      if (d.tp != null) tpEl.value = d.tp;
+      if (d.be != null) beEl.value = d.be;
+      if (typeof d.feeOn === "boolean") feeOnEl.checked = d.feeOn;
+      if (d.feeRate != null) feeRateEl.value = d.feeRate;
+      if (d.taxRate != null) taxRateEl.value = d.taxRate;
+    } catch (e) { /* 무시 */ }
+  }
+
+  /* 슬라이더 ↔ 입력 동기화 */
+  function syncRangeFill() {
+    var min = num(tpRange.min), max = num(tpRange.max), v = num(tpRange.value);
+    var p = ((v - min) / (max - min)) * 100;
+    tpRange.style.setProperty("--p", p + "%");
+  }
+  function syncChips(group, attr, value) {
+    var nodes = group.querySelectorAll(".chip");
+    for (var i = 0; i < nodes.length; i++) {
+      var match = Math.abs(num(nodes[i].getAttribute(attr)) - num(value)) < 0.0001;
+      nodes[i].setAttribute("aria-pressed", match ? "true" : "false");
+    }
+  }
+
+  ["input", "change"].forEach(function (ev) {
+    [priceEl, qtyEl, tpEl, beEl, feeOnEl, feeRateEl, taxRateEl].forEach(function (node) {
+      node.addEventListener(ev, function () {
+        if (node === tpEl) { tpRange.value = num(tpEl.value); syncRangeFill(); syncChips(el("tpchips"), "data-tp", tpEl.value); }
+        if (node === beEl) { syncChips(el("bechips"), "data-be", beEl.value); }
+        render();
+      });
+    });
+  });
+
+  tpRange.addEventListener("input", function () {
+    tpEl.value = tpRange.value;
+    syncRangeFill();
+    syncChips(el("tpchips"), "data-tp", tpEl.value);
+    render();
+  });
+
+  el("tpchips").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-tp]"); if (!b) return;
+    tpEl.value = b.getAttribute("data-tp");
+    tpRange.value = tpEl.value; syncRangeFill();
+    syncChips(el("tpchips"), "data-tp", tpEl.value);
+    render();
+  });
+  el("bechips").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-be]"); if (!b) return;
+    beEl.value = b.getAttribute("data-be");
+    syncChips(el("bechips"), "data-be", beEl.value);
+    render();
+  });
+
+  el("customPct").addEventListener("input", render);
+  el("customPct").addEventListener("focus", function (e) { e.target.select(); });
+
+  load();
+  tpRange.value = num(tpEl.value) || 5;
+  syncRangeFill();
+  syncChips(el("tpchips"), "data-tp", tpEl.value);
+  syncChips(el("bechips"), "data-be", beEl.value);
+  render();
+})();
+</script>
+</body>
+</html>
